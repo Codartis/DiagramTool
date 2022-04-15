@@ -1,3 +1,6 @@
 # Codartis Diagram Tool for C#
 This repo is used for product support activities.
-* Please report problems and feature requests here: https://github.com/Codartis/DiagramTool/issues
+* Reporting problems and feature requests
+
+  * Preferred way (requires a GitHub login): https://github.com/Codartis/DiagramTool/issues
+  * Or via email: support@codartis.com
