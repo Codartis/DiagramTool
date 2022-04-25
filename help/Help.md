@@ -24,7 +24,7 @@
   * Use the **Activate** button if you already have a License Key.
   * Use the **Start trial** button to start a 30-day trial period.
 
-![About Panel](images/AboutPanel.png)
+![About Panel](images/AboutPanel.PNG)
 
 ## Adding items to diagram from source code
 * In the source code editor window right-click on a type or member symbol > Add to Codartis Diagram
@@ -41,54 +41,11 @@
 
 # Details
 
-### Show/Hide descriptions
-* Use the "Show/Hide Descriptions" toolbar button to show/hide type descriptions (the summary part of the type's XML documentation).
+## Controls
 
-![Show Hide Descriptions](images/ShowHideDescriptions.png)
+![Tool Window with help text](images/CodartisToolWindowWithHelpText.png)
 
-### Extend the diagram with related entities
-* Click on the pop-up mini-buttons on the diagram nodes to show related entities.
-
-![Show Related Entities](images/ShowRelatedEntities.png)
-
-### Type features on the diagram
-* Black dots on the side of the type's rectangle means that it has some related entities.
-* *Italic* type name means abstract type.
-* **Bold** type name means that it was found in source code.
-* Normal (non-bold) type name means that it was found in metadata (referenced assembly).
-
-![Type Features](images/TypeFeatures.png)
-
-### Navigate from the diagram to the corresponding source file
-* Double-click on a diagram shape.
-* It works only for those types that were found in the source code (and not in metadata).
-
-### Remove items from the diagram
-* Click on the "remove" mini-button on a shape to remove it from the diagram.
-
-![Remove Diagram Node](images/RemoveDiagramNode.png)
-
-### Export diagram to file or copy to clipboard
-* Use the "Copy to Clipboard" / "Save to File..." toolbar buttons to save/copy the diagram.
-* Set the desired resolution in DPI (dots per inch).
-
-![Export Or Copy Diagram](images/ExportOrCopyDiagram.png)
-
-### Clear the diagram
-* Use the "Clear Diagram" toolbar button to remove all shapes from the diagram.
-
-![Clear Diagram Button](images/ClearDiagramButton.png)
-
-### Update the diagram to reflect code changes
-* Use the "Update Diagram from Code" toolbar button to synchronize the diagram with the changed code.
-
-![Update Diagram From Code Button](images/UpdateDiagramFromCodeButton.png)
-
-* Updates those entities that have the same fully qualified name.
-* Removes those entities that no longer exist in code.
-* Unfortunately this feature can't track type renames so renamed types will be removed from the diagram and must be manually added back if needed.
-
-### Pan and zoom on the diagram
+## Pan and zoom
 * Use the mouse: 
   * Pan by holding down the left mouse button.
   * Zoom with the mouse wheel.
@@ -97,12 +54,45 @@
   * Zoom with W and S keys (FPS shooter-style :)
 * Or use the pan and zoom control on the diagram.
 
-![Pan And Zoom Control](images/PanAndZoomControl.png)
+## Navigate from the diagram to the corresponding source file
+* Double-click on a diagram shape.
+* It works only for those types that were found in the source code (and not in metadata).
 
-### Zoom to the diagram
-* Use the "Fit Diagram to Window" toolbar button, or the rectangle in the Pan and Zoom Control.
+## Diagram node formatting meaning
 
-![Fit Diagram To Window](images/FitDiagramToWindow.png)
+| class | interface | struct | enum | delegate |
+|-------|-----------|--------|------|----------|
+| ![class](images/SampleClass.png) | ![interface](images/SampleInterface.png) | ![stuct](images/SampleStruct.png) | ![enum](images/SampleEnum.png) | ![delegate](images/SampleDelegate.png) |
+
+* Type name formatting meaning:
+  * *Italic* means abstract type.
+  * **Bold** means that it was found in source code.
+  * Normal (non-bold) means that it was found in metadata (referenced assembly).
+
+## How the update from source code feature works
+* Updates those entities that have the same fully qualified name.
+* Removes those entities that no longer exist in code.
+* Unfortunately this feature can't track type renames so renamed types will be removed from the diagram and must be manually added back if needed.
+
+## Performance
+This tool queries the same model that Visual Studio builds for IDE features like IntelliSense, CodeLens, etc. 
+
+For large solutions it may take a while until these models are built and updated.
+
+The status bar of the diagram tool window always indicates when it waits for the underlying parser.
+
+![Status bar busy indicator](images/StatusBarWaitingForParser.png)
 
 # Troubleshooting
- 
+
+## 'Querying the parser' progress bar gets stuck for a long time with low CPU usage
+Other symptoms
+* Task Manager > Details shows that a process called ServiceHub.RoslynCodeAnalysisService.exe consumes low CPU but a large ( and continously increasing) thread count. 
+
+Cause
+* This may indicate that Codartis Diagram Tool and Visual Studio's CodeLens feature interfere with each other.
+
+Solution
+* Turn off CodeLens: Visual Studio main menu > Tools > Options > Text Editor > All Languages > CodeLens > Clear the "Enable CodeLens" checkbox
+
+![DisableCodeLens](images/DisableCodeLens.png)
