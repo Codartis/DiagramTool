@@ -6,7 +6,14 @@
   * [Adding items to diagram from source code](#adding-items-to-diagram-from-source-code)
   * [Adding items to diagram from Solution Explorer](#adding-items-to-diagram-from-solution-explorer)
 * [Details](#setails)
+  * [Controls](#controls)
+  * [Pan and zoom](#pan-and-zoom)
+  * [Jumping from diagram to source code](#jumping-from-diagram-to-source-code)
+  * [Diagram legend](#diagram-legend)
+  * [Updating the diagram from source code](#updating-the-diagram-from-surce-code)
+  * [Performance limitations](#performance-limitations)
 * [Troubleshooting](#troubleshooting)
+  * [Diagram update progress gets stuck for a long time with low CPU usage](#diagram-update-progress-gets-stuck-for-a-long-time-with-low-CPU-usage)
 
 # Getting started
 
@@ -54,11 +61,11 @@
   * Zoom with W and S keys (FPS shooter-style :)
 * Or use the pan and zoom control on the diagram.
 
-## Navigate from the diagram to the corresponding source file
+## Jumping from diagram to source code
 * Double-click on a diagram shape.
 * It works only for those types that were found in the source code (and not in metadata).
 
-## Diagram node formatting meaning
+## Diagram legend
 
 | class | interface | struct | enum | delegate |
 |-------|-----------|--------|------|----------|
@@ -69,12 +76,14 @@
   * **Bold** means that it was found in source code.
   * Normal (non-bold) means that it was found in metadata (referenced assembly).
 
-## How the update from source code feature works
+## Updating the diagram from source code
+If the source code changes you can update the diagram from the current source code.
+
 * Updates those entities that have the same fully qualified name.
 * Removes those entities that no longer exist in code.
 * Unfortunately this feature can't track type renames so renamed types will be removed from the diagram and must be manually added back if needed.
 
-## Performance
+## Performance limitations
 This tool queries the same model that Visual Studio builds for IDE features like IntelliSense, CodeLens, etc. 
 
 For large solutions it may take a while until these models are built and updated.
@@ -85,7 +94,7 @@ The status bar of the diagram tool window always indicates when it waits for the
 
 # Troubleshooting
 
-## 'Querying the parser' progress bar gets stuck for a long time with low CPU usage
+## Diagram update progress gets stuck for a long time with low CPU usage
 Other symptoms
 * Task Manager > Details shows that a process called ServiceHub.RoslynCodeAnalysisService.exe consumes low CPU but a large ( and continously increasing) thread count. 
 
