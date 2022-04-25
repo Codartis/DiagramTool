@@ -4,7 +4,7 @@
 
 This repo is used for product support.
 
-* [Help page](help/Help.md)
+* [Help page](help/Help.md#codartis-diagram-tool-help)
 
 * Reporting problems and feature requests
 
