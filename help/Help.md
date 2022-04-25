@@ -5,12 +5,12 @@
   * [Activating or starting a trial period](#activating-or-starting-a-trial-period)
   * [Adding items to diagram from source code](#adding-items-to-diagram-from-source-code)
   * [Adding items to diagram from Solution Explorer](#adding-items-to-diagram-from-solution-explorer)
-* [Details](#setails)
+* [Details](#details)
   * [Controls](#controls)
   * [Pan and zoom](#pan-and-zoom)
   * [Jumping from diagram to source code](#jumping-from-diagram-to-source-code)
   * [Diagram legend](#diagram-legend)
-  * [Updating the diagram from source code](#updating-the-diagram-from-surce-code)
+  * [Updating the diagram from source code](#updating-the-diagram-from-source-code)
   * [Performance limitations](#performance-limitations)
 * [Troubleshooting](#troubleshooting)
   * [Diagram update progress gets stuck for a long time with low CPU usage](#diagram-update-progress-gets-stuck-for-a-long-time-with-low-CPU-usage)
@@ -88,7 +88,7 @@ This tool queries the same model that Visual Studio builds for IDE features like
 
 For large solutions it may take a while until these models are built and updated.
 
-The status bar of the diagram tool window always indicates when it waits for the underlying parser.
+The status bar of the diagram tool window indicates when it waits for the underlying parser.
 
 ![Status bar busy indicator](images/StatusBarWaitingForParser.png)
 
@@ -96,12 +96,13 @@ The status bar of the diagram tool window always indicates when it waits for the
 
 ## Diagram update progress gets stuck for a long time with low CPU usage
 Other symptoms
-* Task Manager > Details shows that a process called ServiceHub.RoslynCodeAnalysisService.exe consumes low CPU but a large ( and continously increasing) thread count. 
+* Task Manager > Details shows that a process called ServiceHub.RoslynCodeAnalysisService.exe consumes low CPU but a large (and continously increasing) thread count. 
 
 Cause
 * This may indicate that Codartis Diagram Tool and Visual Studio's CodeLens feature interfere with each other.
 
 Solution
-* Turn off CodeLens: Visual Studio main menu > Tools > Options > Text Editor > All Languages > CodeLens > Clear the "Enable CodeLens" checkbox
+* Turn off CodeLens: 
+  * Visual Studio main menu > Tools > Options > Text Editor > All Languages > CodeLens > Clear the "Enable CodeLens" checkbox
 
 ![DisableCodeLens](images/DisableCodeLens.png)
