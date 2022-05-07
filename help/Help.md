@@ -106,3 +106,11 @@ Solution
   * Visual Studio main menu > Tools > Options > Text Editor > All Languages > CodeLens > Clear the "Enable CodeLens" checkbox
 
 ![DisableCodeLens](images/DisableCodeLens.png)
+
+## Double-clicking the VSIX file: "The requested operation requires elevation"
+Details
+* When trying to install the tool by downloading the VSIX file and double-clicking it shows the above error message.
+
+Solution
+* Right-click the VSIX file > Open with... > Choose "Microsoft Visual Studio Version Selector" from the list (might need to click "More apps" to find the item in the list).
+* When prompted: "Do you want to allow this app to make changes to your device?" > Click "Yes"
