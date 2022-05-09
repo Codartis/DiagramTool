@@ -13,14 +13,13 @@
   * [Updating the diagram from source code](#updating-the-diagram-from-source-code)
   * [Performance limitations](#performance-limitations)
 * [Troubleshooting](#troubleshooting)
-  * [Diagram update progress gets stuck for a long time with low CPU usage](#diagram-update-progress-gets-stuck-for-a-long-time-with-low-CPU-usage)
 
 # Getting started
 
 ## Installing
 * Download from Visual Studio Marketplace
   * [VS 2019 version](https://marketplace.visualstudio.com/items?itemName=FerencVizkeleti.QuickDiagramToolforC)
-  * [VS 2022 version]()
+  * [VS 2022 version](https://marketplace.visualstudio.com/items?itemName=FerencVizkeleti.diagramtool-vs2022)
 * Or inside Visual Studio > Extensions > Manage Extensions > type "Codartis" in the search box > click Download
 
 ## Activating or starting a trial period
@@ -104,8 +103,8 @@ Cause
 Solution
 * Turn off CodeLens: 
   * Visual Studio main menu > Tools > Options > Text Editor > All Languages > CodeLens > Clear the "Enable CodeLens" checkbox
-
 ![DisableCodeLens](images/DisableCodeLens.png)
+* Restart Visual Studio.
 
 ## Double-clicking the VSIX file: "The requested operation requires elevation"
 Details
