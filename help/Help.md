@@ -23,6 +23,7 @@
 * Or inside Visual Studio > Extensions > Manage Extensions > type "Codartis" in the search box > click Download
 
 ## Activating or starting a trial period
+> A solution must be open otherwise the tool window is not available.
 * Open the tool window 
   * Visual Studio main menu > View > Other Windows > Codartis Diagram Tool
   * Or use the keyboard shortcut: **CTRL+SHIFT+D, CTRL+SHIFT+D** (yes, push the key combination twice)
