@@ -47,7 +47,7 @@ Make sure that a solution is open otherwise Codartis Diagram Tool may not be ava
   * Visual Studio main menu > View > Other Windows > Codartis Diagram Tool
   * Or use the keyboard shortcut: **CTRL+SHIFT+D, CTRL+SHIFT+D** (yes, push the key combination twice)
 
-<div align="center"><img src="images/AboutPanel.png" alt="About Panel"></div>
+<div align="center"><img src="images/AboutPanel2.png" alt="About Panel"></div>
 
 * In the About Codartis Diagram Tool panel:
   * If you already have a license key, then click the **Activate** button.
