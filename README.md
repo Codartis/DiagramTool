@@ -1,6 +1,6 @@
- ![Codartis Diagram Tool logo](images/CodartisDiagramTool_64.png) 
+<div align="center"><img src="images/CodartisDiagramTool_128.png"></div>
 
-# Codartis Diagram Tool for C#
+# Codartis Diagram Tool for C# / Support Repo
 
 This repo is used for product support.
 
@@ -8,5 +8,7 @@ This repo is used for product support.
 
 * Reporting problems and feature requests
 
-  * Preferred way (requires a GitHub login): https://github.com/Codartis/DiagramTool/issues
-  * Or via email: support@codartis.com
+  * Use the [Issue Tracker](https://github.com/Codartis/DiagramTool/issues) (requires GitHub login)
+  * Or send an email: support@codartis.com
+
+* Product website (download trial, purchase license): [codartis.com](https://codartis.com)
