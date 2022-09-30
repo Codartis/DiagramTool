@@ -1,3 +1,5 @@
+<div align="center"><img src="images/CodartisDiagramTool_128.png"></div>
+
 # Codartis Diagram Tool for C# / Support Repo
 
 This repo is used for product support.
@@ -11,7 +13,7 @@ This repo is used for product support.
 
 * Give feedback
   * Use [Discussions](https://github.com/Codartis/DiagramTool/discussions) (requires GitHub login)
-    * Vote/comment on future enhancements
+    * Vote/comment on future enhancement
     * Share ideas or feature requests
     * Ask questions
   * Or use our [Feedback Form](https://codartis.com/feedback.html)
