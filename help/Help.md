@@ -4,12 +4,15 @@ Codartis Diagram Tool is a Visual Studio extension that creates interactive diag
 
 - [Getting started](#getting-started)
   - [Installing](#installing)
+  - [Supported Visual Studio versions](#supported-visual-studio-versions)
   - [Activating the product or starting a trial period](#activating-the-product-or-starting-a-trial-period)
   - [Adding items to diagram from source code](#adding-items-to-diagram-from-source-code)
   - [Adding items to diagram from Solution Explorer](#adding-items-to-diagram-from-solution-explorer)
 - [Details](#details)
   - [Controls at a glance](#controls-at-a-glance)
   - [Pan and zoom](#pan-and-zoom)
+  - [Selecting Nodes](#selecting-nodes)
+  - [Context Menu](#context-menu)
   - [Automatic layout and manual adjustments](#automatic-layout-and-manual-adjustments)
   - [Jumping from diagram to source code](#jumping-from-diagram-to-source-code)
   - [Diagram notation](#diagram-notation)
@@ -39,6 +42,14 @@ Or
   * Codartis Diagram Tool will be installed when you restart Visual Studio.
 
 > You can find older releases [here](https://codartis.com/diagram-tool/releases.html).
+
+### Supported Visual Studio versions
+* **Visual Studio 2019**
+  * Minimum required version: **16.11+**
+* **Visual Studio 2022** 
+  * Minimum required version: **17.2+**
+
+> All Visual Studio editions are supported: Community/Professional/Enterprise
 
 ### Activating the product or starting a trial period
 Make sure that a solution is open otherwise Codartis Diagram Tool may not be available despite being installed. Check the [Troubleshooting](#troubleshooting) section for more details.
@@ -88,13 +99,27 @@ Make sure that a solution is open otherwise Codartis Diagram Tool may not be ava
   * Zoom with W and S keys (FPS shooter-style :)
 * Or use the pan and zoom control on the diagram.
 
+### Selecting Nodes
+* Click a node to select/unselect
+* CTRL+Click or SHIFT+Click: add/remove node to/from selection
+* CTRL+Drag: select multiple nodes
+* SHIFT+Drag: add nodes to selection
+
+### Context Menu
+Use the context menu to access the following commands:
+* Select All Nodes (shortcut: CTRL+A)
+* Invert Selection
+* Pin Nodes (Selected/All)
+* Unpin Nodes (Selected/All)
+* Remove Nodes (Selected/All But Selected/This Node/All But This Node)
+
 ### Automatic layout and manual adjustments
 Codartis Diagram Tool tries to automatically create a layout that is both clear and meaningful. As the diagram changes the layout is continuously adapted.
 
 However, you can manually adjust the layout by moving (dragging) nodes and by pinning/unpinning nodes.
 * To move a node drag it using the left mouse button.
-  > Point at its name area, not its comment/description.
-* To pin/unpin a node click its "pin" button.
+* Moved nodes become pinned automatically (so they don't try to move back to wherever they want).
+* To pin/unpin a node click its "pin" button, or use the Context Menu.
 
 The automatic layout follows these rules:
 * Nodes must not overlap.
