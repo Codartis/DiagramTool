@@ -19,6 +19,7 @@ Codartis Diagram Tool is a Visual Studio extension that creates interactive diag
   - [Updating the diagram from source code](#updating-the-diagram-from-source-code)
   - [Monitoring and canceling background tasks](#monitoring-and-canceling-background-tasks)
 - [Troubleshooting](#troubleshooting)
+  - [Logging](#logging)
   - [Codartis Diagram Tool is installed but unavailable](#codartis-diagram-tool-is-installed-but-unavailable)
   - [Double-clicking the VSIX file: "The requested operation requires elevation"](#double-clicking-the-vsix-file-the-requested-operation-requires-elevation)
   - [Diagram update progress gets stuck for a long time without progress](#diagram-update-progress-gets-stuck-for-a-long-time-without-progress)
@@ -193,6 +194,19 @@ You can cancel the background tasks by right-clicking on the spinning circle ico
 <div align="center"><img src="images/CancelAllTasks.png" alt="Canceling background tasks"></div>
 
 ## Troubleshooting
+
+### Logging
+In order to turn on logging, follow these steps.
+
+1. Create a folder for the log files, e.g. C:\Temp\CodartisLogs
+2. Define a system environment variable called: "CodartisLogFolder". Set its value to the full path of the log folder that you created.
+  <div align="center"><img src="images/LogFolderEnvironmentVariable.png" alt="Log folder environment variable"></div>
+
+3. Restart Visual Studio so that it picks up the new environment variable.
+4. Check the log folder. The log files will be named like this: "qd-&lt;processid&gt;.log"
+
+To turn off logging, delete the "CodartisLogFolder" environment variable.
+> Don't forget to turn off logging if you don't need it any more to preserve disk space. 
 
 ### Codartis Diagram Tool is installed but unavailable
 Symptoms
