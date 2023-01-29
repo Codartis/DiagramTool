@@ -20,6 +20,7 @@ Codartis Diagram Tool is a Visual Studio extension that creates interactive diag
   - [Monitoring and canceling background tasks](#monitoring-and-canceling-background-tasks)
 - [Troubleshooting](#troubleshooting)
   - [Logging](#logging)
+  - [How to set a system environment variable](#how-to-set-a-system-environment-variable)
   - [Codartis Diagram Tool is installed but unavailable](#codartis-diagram-tool-is-installed-but-unavailable)
   - [Double-clicking the VSIX file: "The requested operation requires elevation"](#double-clicking-the-vsix-file-the-requested-operation-requires-elevation)
   - [Diagram update progress gets stuck for a long time without progress](#diagram-update-progress-gets-stuck-for-a-long-time-without-progress)
@@ -197,16 +198,43 @@ You can cancel the background tasks by right-clicking on the spinning circle ico
 
 ### Logging
 In order to turn on logging, follow these steps.
+> You will need Administrator rights to complete these steps.
+
+> There's a step by step guide below about [How to set a system environment variable](#how-to-set-a-system-environment-variable)
 
 1. Create a folder for the log files, e.g. C:\Temp\CodartisLogs
 2. Define a system environment variable called: "CodartisLogFolder". Set its value to the full path of the log folder that you created.
   <div align="center"><img src="images/LogFolderEnvironmentVariable.png" alt="Log folder environment variable"></div>
+  
+
 
 3. Restart Visual Studio so that it picks up the new environment variable.
 4. Check the log folder. The log files will be named like this: "qd-&lt;processid&gt;.log"
 
 To turn off logging, delete the "CodartisLogFolder" environment variable.
 > Don't forget to turn off logging if you don't need it any more to preserve disk space. 
+
+### How to set a system environment variable
+
+1. Start a command prompt with Administrator rights.
+   * Click the Windows Start Menu and type: `cmd`
+   * Right-click the "Command Prompt" item and choose "Run as administrator"
+   <div align="center"><img src="images/StartCommandPrompt.png" alt="Start Command Prompt"></div>
+
+2. In the Command Prompt window execute this command:
+  
+   `rundll32.exe sysdm.cpl,EditEnvironmentVariables`
+
+3. The "Environment Variable" window appears. 
+   * You can find the "System variables" at the bottom half of the window.
+   * Click "New" to create a variable, or click "Edit" to modify an existing one.
+   <div align="center"><img src="images/EnvironmentVariablesWindow.png" alt="Start Command Prompt"></div>
+
+4. In both the "New" and the "Edit" cases you have the fill in the "Variable name" and the "Variable value" fields.
+   <div align="center"><img src="images/EditSystemVariableWindow.png" alt="Start Command Prompt"></div>
+
+5. Click OK to close the "New System Variable" or "Edit System Variable" window.
+6. Then also click OK to close the "Environment Variables" window in order for the changes to take effect.
 
 ### Codartis Diagram Tool is installed but unavailable
 Symptoms
