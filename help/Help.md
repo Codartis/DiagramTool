@@ -14,7 +14,7 @@ Codartis Diagram Tool is a Visual Studio extension that creates interactive diag
   - [Diagram notation](#diagram-notation)
     - [Node types](#node-types)
     - [Connector types](#connector-types)
-- [How to use](#how-to-use)
+- [How to use the tool?](#how-to-use-the-tool)
   - [Controls at a glance](#controls-at-a-glance)
   - [Saving and loading diagrams](#saving-and-loading-diagrams)
   - [Pan and zoom](#pan-and-zoom)
@@ -131,10 +131,10 @@ Codartis Diagram Tool uses a subset of the standard UML class diagram notation w
 |-------|-----------|--------|------|----------|
 | ![class](images/SampleClass.png) | ![interface](images/SampleInterface.png) | ![stuct](images/SampleStruct.png) | ![enum](images/SampleEnum.png) | ![delegate](images/SampleDelegate.png) |
 
-> Meaning of the different type name formattings:
-> * *Italic* means abstract type.
-> * **Bold** means that it was found in source code.
-> * Normal (non-bold) means that it was found in metadata (referenced assembly).
+Meaning of the different type name formattings:
+* *Italic* means abstract type.
+* **Bold** means that it was found in source code.
+* Normal (non-bold) means that it was found in metadata (referenced assembly).
 
 #### Connector types
 
@@ -146,12 +146,12 @@ Codartis Diagram Tool uses a subset of the standard UML class diagram notation w
 > The arrow heads always point in the direction of the dependency.
 > * That is, A -> B means A depends on B.
 
-> Fields and properties imply associations from the type that contains the field/property to the type of the field/property.
+Fields and properties imply associations from the type that contains the field/property to the type of the field/property.
 
-> Assocations can have a label at the "to" side of the relationship that can contain names and multiplicity markers.
-> * The name of the label is the name of the field/property that represents the association in the source code, if it differs from the type of the field/property.
-> * If there are multiple assocations to the same type then they are listed as multiple labels. In case of more then 2 labels a "..." symbol is displayed and the whole list can be displayed as a tooltip when pointing at the "..." sign.
-> <div align="center"><img src="images/AssocationLabelTooltip.png" alt="Assocation label tooltip"></div>
+Assocations can have a label at the "to" side of the relationship that can contain names and multiplicity markers.
+* The name of the label is the name of the field/property that represents the association in the source code, if it differs from the type of the field/property.
+* If there are multiple assocations to the same type then they are listed as multiple labels. In case of more then 2 labels a "..." symbol is displayed and the whole list can be displayed as a tooltip when pointing at the "..." sign.
+<div align="center"><img src="images/AssocationLabelTooltip.png" alt="Assocation label tooltip"></div>
 
 > Assocation multiplicities are indicated as one of the following markers.
 > * '0..1' means an optional association (a nullable type in source code).
@@ -159,14 +159,13 @@ Codartis Diagram Tool uses a subset of the standard UML class diagram notation w
 > * '[key]' means a dictionary with the given key type.
 > * No multiplicity marker means a multiplicity of '1'.
 
-> In the case of "other dependencies", the type of the dependency is indicated with a UML stereotype.
-> * E.g.&lt;&lt;typeDefinition&gt;&gt;
+In the case of "other dependencies", the type of the dependency is indicated with a UML stereotype, e.g.: &lt;&lt;typeDefinition&gt;&gt;
 
 > For relationships between a constructed generic type and it type definition, the type arguments are indicated as labels at the "to" side of the dependency arrow.
 > <div align="center"><img src="images/TypeDefinitionRelationship.png" alt="Type definition relationship"></div>
 
 
-## How to use
+## How to use the tool?
 
 ### Controls at a glance
 
