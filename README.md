@@ -1,8 +1,10 @@
 <div align="center"><img src="images/CodartisDiagramTool_128.png"></div>
 
-# Codartis Diagram Tool for C# / Support Repo
+# Product support page for Codartis Diagram Tool
 
-This repo is used for product support.
+Codartis Diagram Tool is an interactive code visualization tool for C# to quickly explore, navigate and document source code structure and relationships. Integrates into Microsoft Visual Studio 2019/2022.
+
+This repository is used for product support.
 
 * [Help page](help/Help.md#codartis-diagram-tool-help)
 
@@ -12,8 +14,8 @@ This repo is used for product support.
   * Or send an email: support@codartis.com
 
 * Give feedback
-  * Use [Discussions](https://github.com/Codartis/DiagramTool/discussions) (requires GitHub login)
-    * Vote/comment on future enhancement
+  * Use the [Discussions](https://github.com/Codartis/DiagramTool/discussions) (requires GitHub login)
+    * Vote/comment on future enhancements
     * Share ideas or feature requests
     * Ask questions
   * Or use our [Feedback Form](https://codartis.com/feedback.html)

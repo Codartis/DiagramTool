@@ -10,9 +10,10 @@ Codartis Diagram Tool is a Visual Studio extension that creates interactive diag
   - [Adding items to diagram from Solution Explorer](#adding-items-to-diagram-from-solution-explorer)
 - [Details](#details)
   - [Controls at a glance](#controls-at-a-glance)
+  - [Saving and loading diagrams](#saving-and-loading-diagrams)
   - [Pan and zoom](#pan-and-zoom)
-  - [Selecting Nodes](#selecting-nodes)
-  - [Context Menu](#context-menu)
+  - [Selecting diagram items](#selecting-diagram-items)
+  - [Context menu](#context-menu)
   - [Automatic layout and manual adjustments](#automatic-layout-and-manual-adjustments)
   - [Jumping from diagram to source code](#jumping-from-diagram-to-source-code)
   - [Diagram notation](#diagram-notation)
@@ -90,7 +91,25 @@ Make sure that a solution is open otherwise Codartis Diagram Tool may not be ava
 
 ### Controls at a glance
 
-<div align="center"><img src="images/CodartisToolWindowWithHelpText.png" alt="Codartis Diagram Tool window with help text"></div>
+<div align="center"><img src="images/CodartisToolWindowWithHelpTextSmall.png" alt="Codartis Diagram Tool window with help text"></div>
+
+### Saving and loading diagrams
+* Use the Load Diagram and Save Diagram buttons on the toolbar of the diagram tool window.
+* To save the diagram with a different file name, click the dropdown button next to the save toolbar button, and choose "Save Diagram As...".
+
+<div align="center"><img src="images/SaveLoadButtonsOnToolbar.png" alt="Codartis Diagram Tool window with help text"></div>
+
+* Diagrams are saved into text files, in JSON format, to make it easy to store them in source control systems.
+* The default file extension is ".codartis", but it can be anything.
+* After loading a diagram, the tool automatically tries to link all diagram items to their corresponding source code symbols in the current solution.
+  * Those diagram items that are not found in the current solution (e.g. because they were deleted or renamed) will be marked with a broken link icon.
+  * You can remove all unlinked items from the diagram with the "broom" toolbar button. 
+
+Limitations:
+* At the moment, only one diagram can be open at a time. 
+* Diagram save and load functionality is not integrated with Visual Studio's file handling commands (New/Open/Save) and saved documents don't show up in and cannot be opened from Solution Explorer. 
+* You have to use the "Load Diagram" and "Save Diagram" buttons on the Codartis Diagram Tool window's toolbar. 
+* If you would like to use multiple diagrams, integrated with Visual Studio's document concept, then please comment/vote on this discussion: [Handling multiple diagrams as Visual Studio documents](https://github.com/Codartis/DiagramTool/discussions/9)
 
 ### Pan and zoom
 * Use the mouse: 
@@ -101,13 +120,13 @@ Make sure that a solution is open otherwise Codartis Diagram Tool may not be ava
   * Zoom with W and S keys (FPS shooter-style :)
 * Or use the pan and zoom control on the diagram.
 
-### Selecting Nodes
-* Click a node to select/unselect
+### Selecting diagram items
+* Click a diagram node to select/unselect
 * CTRL+Click or SHIFT+Click: add/remove node to/from selection
 * CTRL+Drag: select multiple nodes
 * SHIFT+Drag: add nodes to selection
 
-### Context Menu
+### Context menu
 Use the context menu to access the following commands:
 * Select All Nodes (shortcut: CTRL+A)
 * Invert Selection
@@ -121,16 +140,16 @@ Codartis Diagram Tool tries to automatically create a layout that is both clear 
 However, you can manually adjust the layout by moving (dragging) nodes and by pinning/unpinning nodes.
 * To move a node drag it using the left mouse button.
 * Moved nodes become pinned automatically (so they don't try to move back to wherever they want).
-* To pin/unpin a node click its "pin" button, or use the Context Menu.
+* To pin/unpin a node click its "pin" button, or use the Context Menu to pin/unpin all nodes, or all selected nodes.
 
 The automatic layout follows these rules:
 * Nodes must not overlap.
 * Inheritance and implementation hierarchies are arranged "top-down", that is, the more abstract types are above the more concrete ones. 
 * Siblings in inheritance hierarchies are ordered by name from left to right.
-* Pinned nodes are moved only if there's a conflict with the above rules.
+* Pinned nodes are moved only to avoid overlaps.
 
 ### Jumping from diagram to source code
-* Double-click on a diagram node.
+* Double-click on a diagram item.
 * It works only for those types that were found in the source code (and not in metadata).
 
 ### Diagram notation
@@ -172,16 +191,17 @@ Additional details:
 
 ### Updating the diagram from source code
 If the source code changes you can update the diagram from the current source code.
-* You can update a single node (and its relationships) by clicking the node's update button.
+* You can update a single item (and its relationships) by clicking the item's update button.
 * Or you can update the whole diagram by using the Update button on the Codartis Diagram Tool window toolbar.
 
-> When working with large solutions prefer updating only single nodes, because updating a whole diagram might take a long time. Even if there are not many items on the diagram, all of their relationships must be searched in the whole solution, that's why the speed of this operation is determined mainly by the solution size.
+> When working with large solutions prefer updating only single items, because updating a whole diagram might take a long time. Even if there are not many items on the diagram, all of their relationships must be searched in the whole solution, that's why the speed of this operation is determined mainly by the solution size.
 
-Diagram node update is based on their fully qualified name (type name + namespace name).
-* If a diagram node is found in source code then its relationships and members are updated.
-* If a diagram node is not found in source code then it is removed from the diagram.
+Diagram item update is based on their fully qualified name (type name + namespace name).
+* If a diagram item is found in source code then its relationships and members are updated.
+* If a diagram item is not found in source code then it is marked with a broken link icon.
+* You can remove unlinked items from the diagram either one-by-one, or all at once with the "broom" toolbar button.
 
-> Unfortunately this feature can't track type renames so renamed types will be removed from the diagram and must be manually added back if needed.
+> Unfortunately this feature can't track symbol rename operations so renamed items will not be found, thus they will be marked as unlinked.
 
 ### Monitoring and canceling background tasks
 Codartis Diagram Tool builds its code model by querying Visual Studio's C# parser. These queries can take a while, especially right after opening a solution when Visual Studio is still busy parsing the entire source code.
