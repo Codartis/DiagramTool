@@ -8,15 +8,21 @@ Codartis Diagram Tool is a Visual Studio extension that creates interactive diag
   - [Activating the product or starting a trial period](#activating-the-product-or-starting-a-trial-period)
   - [Adding items to diagram from source code](#adding-items-to-diagram-from-source-code)
   - [Adding items to diagram from Solution Explorer](#adding-items-to-diagram-from-solution-explorer)
-- [Details](#details)
+- [What can be presented on a diagram?](#what-can-be-presented-on-a-diagram)
+  - [Supported entities](#supported-entities)
+  - [Supported relationships](#supported-relationships)
+  - [Diagram notation](#diagram-notation)
+    - [Node types](#node-types)
+    - [Connector types](#connector-types)
+- [How to use](#how-to-use)
   - [Controls at a glance](#controls-at-a-glance)
   - [Saving and loading diagrams](#saving-and-loading-diagrams)
   - [Pan and zoom](#pan-and-zoom)
   - [Selecting diagram items](#selecting-diagram-items)
-  - [Context menu](#context-menu)
+  - [Pinning items](#pinning-items)
+  - [Removing items from the diagram](#removing-items-from-the-diagram)
   - [Automatic layout and manual adjustments](#automatic-layout-and-manual-adjustments)
   - [Jumping from diagram to source code](#jumping-from-diagram-to-source-code)
-  - [Diagram notation](#diagram-notation)
   - [Updating the diagram from source code](#updating-the-diagram-from-source-code)
   - [Monitoring and canceling background tasks](#monitoring-and-canceling-background-tasks)
 - [Troubleshooting](#troubleshooting)
@@ -87,7 +93,80 @@ Make sure that a solution is open otherwise Codartis Diagram Tool may not be ava
 
 > Tip: Don't add too many items (eg. whole projects) to a diagram because it will be cluttered and sluggish. About 50 items is a practical limit for both layout speed and comprehension.
 
-## Details
+## What can be presented on a diagram?
+Codartis Diagram Tool generates diagrams using the compiler's model of the entities defined in the source code (classes, methods, etc.) The connectors (arrows) on the diagram represent relationships in the static structure of the source code entities (associations, inheritances, etc.)
+
+Currently the supported entities and relationships are similar to the ones used on [UML class diagrams](https://en.wikipedia.org/wiki/Class_diagram), however in the future we would like to go well beyond that by also modeling higher-level structures (projects, namespaces) and many more low-level relationships (method call, property read/write, object creation, etc.)
+
+> If you would like to use these planned features then please vote/comment on these discussions:
+> * [Enhance visual exploration of high-level code structures](https://github.com/Codartis/DiagramTool/discussions/7)
+> * [Enhance visual exploration of low-level structures in code](https://github.com/Codartis/DiagramTool/discussions/8)
+
+Using the compiler's model ensures that the diagrams always accurately represent the actual source code contents.
+
+> See also [Updating the diagram from source code](#updating-the-diagram-from-source-code) about making a diagram up-to-date.
+ 
+### Supported entities
+
+* All C# types: class, struct, interface, enum, delegate.
+  * Note that records are modeled as either class or struct.
+* Generics: type definitions, constructed generic types.
+* Modeled type features: access modifiers, abstract, disposable, comment summary.
+* Modeled members: const, field, property, method, event.
+* Modeled member features: access modifiers, static.
+
+### Supported relationships
+* Association (via fields/properties)
+* Inheritance
+* Interface implementation
+* Generic type construction, usage as generic type argument
+* Containment (of members)
+
+### Diagram notation
+Codartis Diagram Tool uses a subset of the standard UML class diagram notation with additional visual hints that are familiar for Visual Studio users (eg. icons for class, struct, etc.)
+
+#### Node types
+
+| Class | Interface | Struct | Enum | Delegate |
+|-------|-----------|--------|------|----------|
+| ![class](images/SampleClass.png) | ![interface](images/SampleInterface.png) | ![stuct](images/SampleStruct.png) | ![enum](images/SampleEnum.png) | ![delegate](images/SampleDelegate.png) |
+
+> Meaning of the different type name formattings:
+> * *Italic* means abstract type.
+> * **Bold** means that it was found in source code.
+> * Normal (non-bold) means that it was found in metadata (referenced assembly).
+
+#### Connector types
+
+| Association | Inheritance | Interface implementation  | Other dependencies |
+|------------|--------------------------|-------------|--------------------|
+| ![association](images/AssociationArrow.png) | ![inheritance](images/InheritanceArrow.png) | ![interface implementation](images/ImplementationArrow.png)  | ![dependency](images/DependencyArrow.png) | 
+
+
+> The arrow heads always point in the direction of the dependency.
+> * That is, A -> B means A depends on B.
+
+> Fields and properties imply associations from the type that contains the field/property to the type of the field/property.
+
+> Assocations can have a label at the "to" side of the relationship that can contain names and multiplicity markers.
+> * The name of the label is the name of the field/property that represents the association in the source code, if it differs from the type of the field/property.
+> * If there are multiple assocations to the same type then they are listed as multiple labels. In case of more then 2 labels a "..." symbol is displayed and the whole list can be displayed as a tooltip when pointing at the "..." sign.
+> <div align="center"><img src="images/AssocationLabelTooltip.png" alt="Assocation label tooltip"></div>
+
+> Assocation multiplicities are indicated as one of the following markers.
+> * '0..1' means an optional association (a nullable type in source code).
+> * '\*' means "many" (a collection in source code).
+> * '[key]' means a dictionary with the given key type.
+> * No multiplicity marker means a multiplicity of '1'.
+
+> In the case of "other dependencies", the type of the dependency is indicated with a UML stereotype.
+> * E.g.&lt;&lt;typeDefinition&gt;&gt;
+
+> For relationships between a constructed generic type and it type definition, the type arguments are indicated as labels at the "to" side of the dependency arrow.
+> <div align="center"><img src="images/TypeDefinitionRelationship.png" alt="Type definition relationship"></div>
+
+
+## How to use
 
 ### Controls at a glance
 
@@ -109,7 +188,7 @@ Limitations:
 * At the moment, only one diagram can be open at a time. 
 * Diagram save and load functionality is not integrated with Visual Studio's file handling commands (New/Open/Save) and saved documents don't show up in and cannot be opened from Solution Explorer. 
 * You have to use the "Load Diagram" and "Save Diagram" buttons on the Codartis Diagram Tool window's toolbar. 
-* If you would like to use multiple diagrams, integrated with Visual Studio's document concept, then please comment/vote on this discussion: [Handling multiple diagrams as Visual Studio documents](https://github.com/Codartis/DiagramTool/discussions/9)
+* If you would like to use multiple diagrams, integrated with Visual Studio's document concept, then please vote/comment on this discussion: [Handling multiple diagrams as Visual Studio documents](https://github.com/Codartis/DiagramTool/discussions/9)
 
 ### Pan and zoom
 * Use the mouse: 
@@ -121,25 +200,34 @@ Limitations:
 * Or use the pan and zoom control on the diagram.
 
 ### Selecting diagram items
-* Click a diagram node to select/unselect
-* CTRL+Click or SHIFT+Click: add/remove node to/from selection
-* CTRL+Drag: select multiple nodes
-* SHIFT+Drag: add nodes to selection
+* Click a diagram node to select/unselect.
+  * CTRL+Click or SHIFT+Click: add/remove node to/from selection.
+* Select multiple items with
+  * CTRL+Drag: select multiple nodes.
+  * SHIFT+Drag: add nodes to selection.
+* Or right-click for the Context Menu
+  * Select All Nodes (shortcut: CTRL+A)
+  * Invert Selection
 
-### Context menu
-Use the context menu to access the following commands:
-* Select All Nodes (shortcut: CTRL+A)
-* Invert Selection
-* Pin Nodes (Selected/All)
-* Unpin Nodes (Selected/All)
-* Remove Nodes (Selected/All But Selected/This Node/All But This Node)
+### Pinning items
+Pin nodes to fix their position, so that the automatic layout engine does not try to rearrange them.
+* Use the Pin button on a diagram node to toggle its pin state.
+* Or right-click for the Context Menu
+  * Pin Nodes (Selected/All)
+  * Unpin Nodes (Selected/All)
+
+### Removing items from the diagram
+* Use the Close button on a diagram node to remove it from the diagram.
+* Use the Clear button on the toolbar to remove all diagram items.
+* Or right-click for the Context Menu
+  * Remove Nodes (Selected/All But Selected/This Node/All But This Node)
 
 ### Automatic layout and manual adjustments
 Codartis Diagram Tool tries to automatically create a layout that is both clear and meaningful. As the diagram changes the layout is continuously adapted.
 
 However, you can manually adjust the layout by moving (dragging) nodes and by pinning/unpinning nodes.
-* To move a node drag it using the left mouse button.
-* Moved nodes become pinned automatically (so they don't try to move back to wherever they want).
+* To move a node, drag it using the left mouse button.
+* Moved nodes get automatically pinned (so they don't try to move back to wherever they want), but you can always unpin them.
 * To pin/unpin a node click its "pin" button, or use the Context Menu to pin/unpin all nodes, or all selected nodes.
 
 The automatic layout follows these rules:
@@ -148,46 +236,11 @@ The automatic layout follows these rules:
 * Siblings in inheritance hierarchies are ordered by name from left to right.
 * Pinned nodes are moved only to avoid overlaps.
 
+> If you would like to see better autmatic layout then please vote/comment on this discussion: [Enhance automatic diagram layout](https://github.com/Codartis/DiagramTool/discussions/4)
+
 ### Jumping from diagram to source code
 * Double-click on a diagram item.
 * It works only for those types that were found in the source code (and not in metadata).
-
-### Diagram notation
-Codartis Diagram Tool uses a subset of the standard UML class diagram notation with additional visual hints that are familiar for Visual Studio users (eg. icons for class, struct, etc.)
-
-| Class | Interface | Struct | Enum | Delegate |
-|-------|-----------|--------|------|----------|
-| ![class](images/SampleClass.png) | ![interface](images/SampleInterface.png) | ![stuct](images/SampleStruct.png) | ![enum](images/SampleEnum.png) | ![delegate](images/SampleDelegate.png) |
-
-Additional details:
-* Meaning of the different type name formattings:
-  * *Italic* means abstract type.
-  * **Bold** means that it was found in source code.
-  * Normal (non-bold) means that it was found in metadata (referenced assembly).
-
-| Association | Inheritance | Interface implementation  | Other dependencies |
-|------------|--------------------------|-------------|--------------------|
-| ![association](images/AssociationArrow.png) | ![inheritance](images/InheritanceArrow.png) | ![interface implementation](images/ImplementationArrow.png)  | ![dependency](images/DependencyArrow.png) | 
-
-
-Additional details:
-* The arrow heads always point in the direction of the dependency.
-  * That is, A -> B means A depends on B.
-* Fields and properties imply associations from the type that contains the field/property to the type of the field/property.
-* Assocations can have a label at the "to" side of the relationship that can contain names and multiplicity markers.
-  * The name of the label is the name of the field/property that represents the association in the source code, if it differs from the type of the field/property.
-  * If there are multiple assocations to the same type then they are listed as multiple labels. In case of more then 2 labels a "..." symbol is displayed and the whole list can be displayed as a tooltip when pointing at the "..." sign.
-<div align="center"><img src="images/AssocationLabelTooltip.png" alt="Assocation label tooltip"></div>
-
-* Assocation multiplicities are indicated as one of the following markers.
-    * '0..1' means an optional association (a nullable type in source code).
-    * '\*' means "many" (a collection in source code).
-    * '[key]' means a dictionary with the given key type.
-    * No multiplicity marker means a multiplicity of '1'.
-* In the case of "other dependencies", the type of the dependency is indicated with a UML stereotype.
-  * E.g.&lt;&lt;typeDefinition&gt;&gt;
-* For relationships between a constructed generic type and it type definition, the type arguments are indicated as labels at the "to" side of the dependency arrow.
-<div align="center"><img src="images/TypeDefinitionRelationship.png" alt="Type definition relationship"></div>
 
 ### Updating the diagram from source code
 If the source code changes you can update the diagram from the current source code.
