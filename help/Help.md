@@ -17,10 +17,12 @@ Codartis Diagram Tool is a Visual Studio extension that creates interactive diag
 - [How to use the tool?](#how-to-use-the-tool)
   - [Controls at a glance](#controls-at-a-glance)
   - [Saving and loading diagrams](#saving-and-loading-diagrams)
-  - [Pan and zoom](#pan-and-zoom)
-  - [Selecting diagram items](#selecting-diagram-items)
-  - [Pinning items](#pinning-items)
-  - [Removing items from the diagram](#removing-items-from-the-diagram)
+  - [Pan](#pan)
+  - [Zoom](#zoom)
+  - [Selecting nodes](#selecting-nodes)
+  - [Resizing nodes](#resizing-nodes)
+  - [Pinning nodes](#pinning-nodes)
+  - [Removing nodes from the diagram](#removing-nodes-from-the-diagram)
   - [Automatic layout and manual adjustments](#automatic-layout-and-manual-adjustments)
   - [Jumping from diagram to source code](#jumping-from-diagram-to-source-code)
   - [Updating the diagram from source code](#updating-the-diagram-from-source-code)
@@ -86,7 +88,17 @@ Make sure that a solution is open otherwise Codartis Diagram Tool may not be ava
   * Adding an entire type hierarchy: **CTRL+SHIFT+D, CTRL+SHIFT+H** 
 
 ### Adding items to diagram from Solution Explorer
-* In the Solution Explorer window right-click on a file or folder
+* **Drag-and-drop** items from the Solution Explorer tree to the Codartis Diagram Tool window.
+  * C# code file (.cs): adds the namespaces and types that are declared in that file.
+  * Folder: adds all C# files in that folder.
+  * Project: adds the project's output assembly.
+  * Solution Folder: adds all projects in that folder.
+
+> The solution node cannot be dragged, but you can add it by right-click > **Add to Codartis Diagram**.
+
+Or
+
+* In the Solution Explorer window right-click on a file, folder, project, solution folder, or the solution node.
   * In the context menu click **Add to Codartis Diagram**
 
 <div align="center"><img src="images/AddToDiagramFromSolutionExplorer.png" alt="Add to Diagram from Solution Explorer"></div>
@@ -94,13 +106,14 @@ Make sure that a solution is open otherwise Codartis Diagram Tool may not be ava
 > Tip: Don't add too many items (eg. whole projects) to a diagram because it will be cluttered and sluggish. About 50 items is a practical limit for both layout speed and comprehension.
 
 ## What can be presented on a diagram?
-Codartis Diagram Tool generates diagrams using the compiler's model of the entities defined in the source code (classes, methods, etc.) The connectors (arrows) on the diagram represent relationships in the static structure of the source code entities (associations, inheritances, etc.)
+Codartis Diagram Tool generates diagrams using the compiler's model of the entities defined in the source code (namespaces, classes, methods, etc.) The connectors (arrows) on the diagram represent relationships in the static structure of the source code entities (associations, inheritances, assembly references, etc.)
 
-Currently the supported entities and relationships are similar to the ones used on [UML class diagrams](https://en.wikipedia.org/wiki/Class_diagram), however in the future we would like to go well beyond that by also modeling higher-level structures (projects, namespaces) and many more low-level relationships (method call, property read/write, object creation, etc.)
+Currently the supported entities and relationships are similar to the ones used on [UML class diagrams](https://en.wikipedia.org/wiki/Class_diagram), plus namespaces and assemblies. However in the future we would like to add more low-level relationships (method call, property read/write, object creation, etc.)
 
 > If you would like to use these planned features then please vote/comment on these discussions:
-> * [Enhance visual exploration of high-level code structures](https://github.com/Codartis/DiagramTool/discussions/7)
 > * [Enhance visual exploration of low-level structures in code](https://github.com/Codartis/DiagramTool/discussions/8)
+> * [Enhance visual exploration of high-level code structures](https://github.com/Codartis/DiagramTool/discussions/7)
+
 
 Using the compiler's model ensures that the diagrams always accurately represent the actual source code contents.
 
@@ -108,6 +121,9 @@ Using the compiler's model ensures that the diagrams always accurately represent
  
 ### Supported entities
 
+* Assemblies
+  * Project output and referenced assemblies.
+* Namespaces
 * All C# types: class, struct, interface, enum, delegate.
   * Note that records are modeled as either class or struct.
 * Generics: type definitions, constructed generic types.
@@ -120,16 +136,17 @@ Using the compiler's model ensures that the diagrams always accurately represent
 * Inheritance
 * Interface implementation
 * Generic type construction, usage as generic type argument
-* Containment (of members)
+* Containment (parent/child)
+* Assembly reference
 
 ### Diagram notation
 Codartis Diagram Tool uses a subset of the standard UML class diagram notation with additional visual hints that are familiar for Visual Studio users (eg. icons for class, struct, etc.)
 
 #### Node types
 
-| Class | Interface | Struct | Enum | Delegate |
-|-------|-----------|--------|------|----------|
-| ![class](images/SampleClass.png) | ![interface](images/SampleInterface.png) | ![stuct](images/SampleStruct.png) | ![enum](images/SampleEnum.png) | ![delegate](images/SampleDelegate.png) |
+| Class | Interface | Struct | Enum | Delegate | Namespace | Assembly |
+|-------|-----------|--------|------|----------|-----------|----------|
+| ![class](images/SampleClass.png) | ![interface](images/SampleInterface.png) | ![stuct](images/SampleStruct.png) | ![enum](images/SampleEnum.png) | ![delegate](images/SampleDelegate.png) | ![delegate](images/SampleNamespace.png) | ![assembly](images/SampleAssembly.png)
 
 Meaning of the different type name formattings:
 * *Italic* means abstract type.
@@ -169,13 +186,13 @@ In the case of "other dependencies", the type of the dependency is indicated wit
 
 ### Controls at a glance
 
-<div align="center"><img src="images/CodartisToolWindowWithHelpTextSmall.png" alt="Codartis Diagram Tool window with help text"></div>
+<div align="center"><img src="images/CodartisToolWindowWithHelpText.png" alt="Codartis Diagram Tool window with help text"></div>
 
 ### Saving and loading diagrams
 * Use the Load Diagram and Save Diagram buttons on the toolbar of the diagram tool window.
 * To save the diagram with a different file name, click the dropdown button next to the save toolbar button, and choose "Save Diagram As...".
 
-<div align="center"><img src="images/SaveLoadButtonsOnToolbar.png" alt="Codartis Diagram Tool window with help text"></div>
+<div align="center"><img src="images/SaveLoadButtonsOnToolbar.png" alt="Save/Load button on toolbar"></div>
 
 * Diagrams are saved into text files, in JSON format, to make it easy to store them in source control systems.
 * The default file extension is ".codartis", but it can be anything.
@@ -189,16 +206,23 @@ Limitations:
 * You have to use the "Load Diagram" and "Save Diagram" buttons on the Codartis Diagram Tool window's toolbar. 
 * If you would like to use multiple diagrams, integrated with Visual Studio's document concept, then please vote/comment on this discussion: [Handling multiple diagrams as Visual Studio documents](https://github.com/Codartis/DiagramTool/discussions/9)
 
-### Pan and zoom
-* Use the mouse: 
-  * Pan by holding down the left mouse button.
-  * Zoom with the mouse wheel.
-* Or use the keyboard (only if the diagram window has the focus): 
+### Pan
+* With mouse: 
+  * Hold down **left** mouse button (while pointing at the diagram background) + move mouse, or
+  * **ALT** + Hold down **left** mouse button + move mouse, or
+  * Hold down **middle** mouse button + move mouse.
+* With keyboard (only if the diagram window has the focus): 
   * Pan with the cursor keys.
-  * Zoom with W and S keys (FPS shooter-style :)
 * Or use the pan and zoom control on the diagram.
 
-### Selecting diagram items
+### Zoom
+* With mouse: 
+  * Turn the mouse wheel.
+* With keyboard (only if the diagram window has the focus): 
+  * Zoom with W and S keys
+* Or use the pan and zoom control on the diagram.
+
+### Selecting nodes
 * Click a diagram node to select/unselect.
   * CTRL+Click or SHIFT+Click: add/remove node to/from selection.
 * Select multiple items with
@@ -208,14 +232,18 @@ Limitations:
   * Select All Nodes (shortcut: CTRL+A)
   * Invert Selection
 
-### Pinning items
+### Resizing nodes
+* Grab and drag the resize handle at the bottom right corner of the diagram nodes.
+* Double-click the resize handle to return the node to its default size.
+
+### Pinning nodes
 Pin nodes to fix their position, so that the automatic layout engine does not try to rearrange them.
 * Use the Pin button on a diagram node to toggle its pin state.
 * Or right-click for the Context Menu
   * Pin Nodes (Selected/All)
   * Unpin Nodes (Selected/All)
 
-### Removing items from the diagram
+### Removing nodes from the diagram
 * Use the Close button on a diagram node to remove it from the diagram.
 * Use the Clear button on the toolbar to remove all diagram items.
 * Or right-click for the Context Menu
