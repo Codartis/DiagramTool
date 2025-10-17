@@ -1,4 +1,4 @@
-# Codartis Diagram Tool Help
+# Codartis Diagram Tool Help (v1.x)
 
 Codartis Diagram Tool is a Visual Studio extension that creates interactive diagrams from C# types and members. The diagram can be used to explore code structure and relationships, navigate between code files and export diagram images to be used in documentation.
 

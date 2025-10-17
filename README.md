@@ -6,7 +6,12 @@ Codartis Diagram Tool is an interactive code visualization tool for C# to quickl
 
 This repository is used for product support.
 
-* [Help page](help/Help.md#codartis-diagram-tool-help)
+* Help
+  * [Getting Started](help/v2/getting-started.md)
+  * [Using the Diagram Tool](help/v2/how-to-use.md)
+  * [Diagram Elements and Notation](help/v2/diagram-notation.md)
+  * [Troubleshooting](help/v2/troubleshooting.md)
+  * [Previous Version (v1.x)](help/Help.md)
 
 * Report problems
 
