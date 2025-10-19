@@ -90,19 +90,11 @@ Place the caret on a type or member name, then use:
 
 ### Using Drag-and-Drop
 * Drag items from Solution Explorer to the Codartis Diagram Tool window.
-* Behavior depends on the item type:
-  * **C# code file (.cs)**: adds the namespaces and types in the file.
-  * **Folder**: adds all C# files in the folder.
-  * **Project**: adds the project’s output assembly.
-  * **Solution Folder**: adds all projects in that folder.
-
-> The solution node cannot be dragged, but you can add it via right-click | **Add to Codartis Diagram**.
 
 ### Using the Context Menu
 
-Right-click a file, folder, project, solution folder, or the solution node in Solution Explorer, then select **Add to Codartis Diagram**.
+* Right-click a file, folder, project, solution folder, or the solution node in Solution Explorer, then select **Add to Codartis Diagram**.
 
 <div align="center"><img src="images/AddToDiagramFromSolutionExplorer.png" alt="Add to Diagram from Solution Explorer"></div>
 
 > Tip: Avoid adding too many items at once (e.g., entire projects), as diagrams may become cluttered or slow. Around 50 items is a practical limit.
-
