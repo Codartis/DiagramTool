@@ -2,7 +2,7 @@
 
 # Product support page for Codartis Diagram Tool
 
-Codartis Diagram Tool is an interactive code visualization tool for C# to quickly explore, navigate and document source code structure and relationships. Integrates into Microsoft Visual Studio 2019/2022.
+Codartis Diagram Tool is an interactive code visualization tool for C# to quickly explore, navigate and document source code structure and relationships. Integrates into Microsoft Visual Studio 2019/2022/2026.
 
 This repository is used for product support.
 

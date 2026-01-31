@@ -70,7 +70,7 @@ Types implementing IDisposable are marked with a trash can icon.
 The following relationships between source code entities are represented as connectors on the diagram:
 
 * Association
-  * Fields and properties imply associations from the type that defines them to the type they reference
+  * Fields, properties and primary constructor parameters imply associations from the type that defines them to the type they reference
 * Inheritance
 * Interface implementation
 * Generic type construction

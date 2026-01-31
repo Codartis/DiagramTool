@@ -31,7 +31,8 @@ Learn how to install the tool, start a trial, activate your license, and add sou
 ## Supported Visual Studio Versions
 * **Visual Studio 2019**: version **16.11.12** or later
 * **Visual Studio 2022**: version: **17.14.10** or later
-
+* **Visual Studio 2026**: version: **18.2.1** or later
+* 
 > All Visual Studio editions are supported: Community, Professional, and Enterprise.
 
 ## Installation
@@ -45,7 +46,7 @@ Learn how to install the tool, start a trial, activate your license, and add sou
 ### Option 2: Using the VSIX Installer
 1. Download the Codartis Diagram Tool VSIX file from the Visual Studio Marketplace: 
     * [VS 2019 version](https://marketplace.visualstudio.com/items?itemName=FerencVizkeleti.QuickDiagramToolforC)
-    * [VS 2022 version](https://marketplace.visualstudio.com/items?itemName=FerencVizkeleti.diagramtool-vs2022)
+    * [VS 2022 & VS 2026 version](https://marketplace.visualstudio.com/items?itemName=FerencVizkeleti.diagramtool-vs2022)
 2. Double-click the downloaded VSIX file and follow the installer instructions.
 3. If you encounter permission errors, see the [Troubleshooting](troubleshooting.md) page or [install via Visual Studio](#option-1-using-the-extension-manager-in-visual-studio).
 
