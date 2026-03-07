@@ -18,6 +18,7 @@ Learn how to enable logging and resolve common issues.
 - [Codartis Diagram Tool Is Installed but Unavailable](#codartis-diagram-tool-is-installed-but-unavailable)
 - [Error: “The requested operation requires elevation” When Installing from VSIX](#error-the-requested-operation-requires-elevation-when-installing-from-vsix)
 - [Diagram Update Progress Appears Stuck](#diagram-update-progress-appears-stuck)
+- [Visual Studio Crashes When Running in Oracle VirtualBox](#visual-studio-crashes-when-running-in-oracle-virtualbox)
 
 ---
 
@@ -98,4 +99,19 @@ Solution
    * Clear the **Enable CodeLens** checkbox.
     <div align="center"><img src="images/DisableCodeLens.png" alt="Disable CodeLens"></div>
 2. Restart Visual Studio.
+
+## Visual Studio Crashes When Running in Oracle VirtualBox
+Symptoms
+* Visual Studio crashes (access violation) when interacting with diagrams — for example, adding class members to nodes or moving the diagram.
+* The crash occurs in an unidentified native module (not in managed/.NET code).
+* The Codartis Diagram Tool log shows no errors or exceptions before the crash.
+* The issue affects Codartis Diagram Tool v2.x but not v1.x.
+
+Cause
+* This is a compatibility issue between **Oracle VirtualBox's virtual graphics driver** and the **WPF (Windows Presentation Foundation) rendering layer** used by Visual Studio.
+* WPF relies on hardware-accelerated rendering via DirectX. VirtualBox's virtual GPU driver has known issues handling complex WPF/DirectX rendering, which Codartis Diagram Tool v2.x triggers due to its richer UI controls (e.g., scrollable and reorderable member lists).
+
+Solution
+* Run Visual Studio **natively** (outside of VirtualBox) to avoid the virtual GPU driver entirely. This is the only known way to fully resolve this issue.
+* If you must use VirtualBox, consider using Codartis Diagram Tool v1.x, which is unaffected. Note that diagrams saved with v2.x cannot be opened in v1.x due to file format changes.
 
