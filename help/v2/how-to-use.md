@@ -27,6 +27,7 @@ Learn how to use the features of the Codartis Diagram Tool to visualize and expl
   - [Adding Related Nodes](#adding-related-nodes)
   - [Adding Notes](#adding-notes)
   - [Removing Items](#removing-items)
+- [Extracting Items to a New Diagram](#extracting-items-to-a-new-diagram)
 - [Undo and Redo](#undo-and-redo)
 - [Selecting and Arranging Diagram Items](#selecting-and-arranging-diagram-items)
   - [Automatic Layout and Manual Adjustments](#automatic-layout-and-manual-adjustments)
@@ -52,6 +53,7 @@ Learn how to use the features of the Codartis Diagram Tool to visualize and expl
 - [Exporting a Diagram as an Image](#exporting-a-diagram-as-an-image)
 - [Diagram Options](#diagram-options)
 - [Monitoring and Canceling Background Tasks](#monitoring-and-canceling-background-tasks)
+  - [Progress and Cancellation for Large Diagram Changes](#progress-and-cancellation-for-large-diagram-changes)
 
 ---
 
@@ -149,6 +151,20 @@ In a source code editor window:
 * Or press **Delete / Backspace**.
 
 > **Note**: Connectors have no Close button — select them and press **Delete or Backspace**.
+
+## Extracting Items to a New Diagram
+
+You can split off part of a diagram into a brand-new diagram — a quick way to break a large, cluttered diagram into smaller, focused views.
+
+Right-click a node and choose:
+* **Extract to New Diagram** — creates a new diagram containing that node.
+* **Extract with Related to New Diagram** — creates a new diagram containing that node **and** all directly related nodes currently shown in the diagram.
+
+The extracted items keep their full appearance — position, size, color, and connectors. The original diagram is left unchanged.
+
+> **Tip**: If the node you right-click is part of the current selection, **all selected nodes** are extracted. Otherwise, only the node you clicked is extracted.
+
+> **Note**: The new diagram opens in its own window. Save it like any other diagram — see [Saving and Loading Diagrams](#saving-and-loading-diagrams).
 
 ## Undo and Redo
 * Use the **Undo / Redo** toolbar buttons, or press **Ctrl+Z / Ctrl+Y.**
@@ -325,3 +341,11 @@ You can cancel background tasks anytime:
 * Right-click the **spinning circle icon** on the left side of the status bar → select **Cancel All Tasks**.
 
 <div align="center"><img src="images/CancelAllTasks.png" alt="Canceling background tasks"></div>
+
+### Progress and Cancellation for Large Diagram Changes
+
+Some operations — such as adding, removing, or clearing many items at once — briefly disable the diagram while they run. During these operations an overlay appears on the diagram showing progress:
+* A **progress bar** shows how far the operation has advanced.
+* When the operation can be interrupted, a **Cancel** button appears.
+
+Canceling stops the operation early and leaves the diagram in a consistent state that you can still undo.
